@@ -9,5 +9,24 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
+<script type="text/javascript">
+  var configuration = {
+    widgetId: "3669426b3268383232343439",
+    tokenAuth: "576089TvRSEzjy7F6abb7e36P1",
+    identifier: "<enter mobile number/email here> (optional)",
+    exposeMethods: true,
+    captchaRenderId: '', // id(must be unique) of html element where to render captcha, only works if there is exposedMethod is true,.
+    success: (data) => {
+        // get verified token in response
+        console.log('success response', data);
+    },
+    failure: (error) => {
+        // handle error
+        console.log('failure reason', error);
+    },
+
+};
+</script>
+ <script type="text/javascript" onload="initSendOTP(configuration)" src="https://verify.msg91.com/otp-provider.js"></script>
   </body>
 </html>
