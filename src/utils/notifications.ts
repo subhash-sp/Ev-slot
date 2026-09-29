@@ -70,22 +70,74 @@ export function buildEmail({ booking, station, charger, user }: ConfirmationPayl
   };
 }
 
-/** SMS integration placeholder — connect a provider on the backend. */
-export async function sendSmsConfirmation(payload: ConfirmationPayload): Promise<DeliveryResult> {
+/** Send booking confirmation SMS through the backend MSG91 API. */
+export async function sendSmsConfirmation(
+  payload: ConfirmationPayload
+): Promise<DeliveryResult> {
   const message = buildSmsMessage(payload);
   const to = `+91 ${payload.user.mobile}`;
+
   if (!SMS_PROVIDER_CONFIGURED) {
-    return { channel: 'sms', status: 'not_configured', to, message };
+    return {
+      channel: 'sms',
+      status: 'not_configured',
+      to,
+      message
+    };
   }
+
   try {
+    const chargerNo =
+      payload.charger.label.replace(/\D/g, '') || payload.charger.label;
+
     const res = await fetch('/api/notifications/sms', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ to, message, bookingId: payload.booking.id })
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        mobile: payload.user.mobile,
+        stationName: payload.station.name,
+        date: formatShortDate(payload.booking.date),
+        time: formatTimeRange(
+          payload.booking.startTime,
+          payload.booking.endTime
+        ),
+        charger: chargerNo,
+        bookingId: payload.booking.id
+      })
     });
-    return { channel: 'sms', status: res.ok ? 'sent' : 'failed', to, message };
-  } catch {
-    return { channel: 'sms', status: 'failed', to, message };
+
+    const data = await res.json().catch(() => null);
+
+    if (!res.ok) {
+      console.error('SMS API Error:', data);
+
+      return {
+        channel: 'sms',
+        status: 'failed',
+        to,
+        message
+      };
+    }
+
+    console.log('SMS sent successfully:', data);
+
+    return {
+      channel: 'sms',
+      status: 'sent',
+      to,
+      message
+    };
+  } catch (error) {
+    console.error('SMS confirmation error:', error);
+
+    return {
+      channel: 'sms',
+      status: 'failed',
+      to,
+      message
+    };
   }
 }
 
