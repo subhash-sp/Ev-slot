@@ -9,7 +9,7 @@
  * To go live, implement these on your backend (e.g. POST /api/notifications/sms)
  * with a provider such as Twilio, MSG91 or AWS SNS, then set the flags below.
  */
-import type { Booking, Charger, Station, User } from '../types/models';
+import type { Booking, Charger, Station, User } from '../types/models'; 
 import { formatLongDate, formatShortDate, formatTimeRange } from './time';
 
 export const SMS_PROVIDER_CONFIGURED = false;
