@@ -12,8 +12,8 @@
 import type { Booking, Charger, Station, User } from '../types/models';
 import { formatLongDate, formatShortDate, formatTimeRange } from './time';
 
-export const SMS_PROVIDER_CONFIGURED = true;
-export const EMAIL_PROVIDER_CONFIGURED = false;
+export const SMS_PROVIDER_CONFIGURED = false;
+export const EMAIL_PROVIDER_CONFIGURED = true;
 
 export type DeliveryStatus = 'sent' | 'not_configured' | 'failed';
 
