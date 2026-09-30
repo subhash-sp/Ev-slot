@@ -89,19 +89,17 @@ export function BookingSuccess() {
             <p>To {user.email}</p>
             <Preview title={buildEmail(payload).subject} body={buildEmail(payload).body} />
           </Channel>
-  <Channel icon={<MessageSquareIcon className="h-4 w-4" />} title="SMS confirmation" status={<Pill tone="slate">Demo</Pill>}>
-         <Channel
-  icon={<MessageSquareIcon className="h-4 w-4" />}
-  title="SMS confirmation"
-  status={<Pill tone="slate">Demo</Pill>}
->
-  <p>To +91 {user.mobile}</p>
-  <Preview body={buildSmsMessage(payload)} mono />
-</Channel>
-         <p className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
-  Email confirmation is active. SMS delivery is simulated in this demo environment.
-</p>
 
+          <Channel icon={<MessageSquareIcon className="h-4 w-4" />} title="SMS confirmation" status={<StatusPill result={sms} />}>
+            <p>To +91 {user.mobile}</p>
+            <Preview body={buildSmsMessage(payload)} mono />
+          </Channel>
+
+          {(email?.status === 'not_configured' || sms?.status === 'not_configured') &&
+          <p className="rounded-xl border border-orange-200 bg-orange-50 p-3 text-xs text-orange-800">
+              No email or SMS provider is connected in this environment, so these messages were prepared but <strong>not sent</strong>. Connect a provider to deliver them automatically.
+            </p>
+          }
         </section>
       </div>
     </div>);
@@ -133,20 +131,10 @@ function Preview({ title, body, mono }: {title?: string;body: string;mono?: bool
 
 }
 
-function StatusPill({ result }: { result?: DeliveryResult }) {
-  if (!result)
-    return (
-      <Pill tone="slate">
-        <Loader2Icon className="h-3 w-3 animate-spin" /> Preparing
-      </Pill>
-    );
-
-  if (result.status === 'sent')
-    return <Pill tone="green">Sent</Pill>;
-
-  if (result.status === 'failed')
-    return <Pill tone="red">Failed</Pill>;
-
+function StatusPill({ result }: {result?: DeliveryResult;}) {
+  if (!result) return <Pill tone="slate"><Loader2Icon className="h-3 w-3 animate-spin" /> Preparing</Pill>;
+  if (result.status === 'sent') return <Pill tone="green">Sent</Pill>;
+  if (result.status === 'failed') return <Pill tone="red">Failed</Pill>;
   return <Pill tone="orange">Not sent · no provider</Pill>;
 }
 
