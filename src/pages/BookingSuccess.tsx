@@ -98,7 +98,7 @@ export function BookingSuccess() {
           <p className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
   Email confirmation is active. SMS delivery is simulated in this demo environment.
 </p>
-          }
+         
         </section>
       </div>
     </div>);
