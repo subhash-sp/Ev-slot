@@ -135,7 +135,7 @@ function StatusPill({ result }: {result?: DeliveryResult;}) {
   if (!result) return <Pill tone="slate"><Loader2Icon className="h-3 w-3 animate-spin" /> Preparing</Pill>;
   if (result.status === 'sent') return <Pill tone="green">Sent</Pill>;
   if (result.status === 'failed') return <Pill tone="red">Failed</Pill>;
-  return <Pill tone="orange">Not sent · no provider</Pill>;
+  return <Pill tone="orange">Demo</Pill>;
 }
 
 function Pill({ tone, children }: {tone: 'green' | 'orange' | 'red' | 'slate';children: React.ReactNode;}) {
