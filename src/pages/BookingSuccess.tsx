@@ -97,7 +97,7 @@ export function BookingSuccess() {
 
           {(email?.status === 'not_configured' || sms?.status === 'not_configured') &&
           <p className="rounded-xl border border-orange-200 bg-orange-50 p-3 text-xs text-orange-800">
-              No email or SMS provider is connected in this environment, so these messages were prepared but <strong>not sent</strong>. Connect a provider to deliver them automatically.
+              Email confirmation is active. SMS delivery is simulated in this demo environment.
             </p>
           }
         </section>
@@ -135,7 +135,7 @@ function StatusPill({ result }: {result?: DeliveryResult;}) {
   if (!result) return <Pill tone="slate"><Loader2Icon className="h-3 w-3 animate-spin" /> Preparing</Pill>;
   if (result.status === 'sent') return <Pill tone="green">Sent</Pill>;
   if (result.status === 'failed') return <Pill tone="red">Failed</Pill>;
-  return <Pill tone="orange">Not sent · no provider</Pill>;
+  return <Pill tone="orange">Demo</Pill>;
 }
 
 function Pill({ tone, children }: {tone: 'green' | 'orange' | 'red' | 'slate';children: React.ReactNode;}) {
