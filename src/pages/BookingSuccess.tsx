@@ -90,11 +90,14 @@ export function BookingSuccess() {
             <Preview title={buildEmail(payload).subject} body={buildEmail(payload).body} />
           </Channel>
 
-          <Channel icon={<MessageSquareIcon className="h-4 w-4" />} title="SMS confirmation" return <Pill tone="orange">Not sent · no provider</Pill>;}>
-            <p>To +91 {user.mobile}</p>
-            <Preview body={buildSmsMessage(payload)} mono />
-          </Channel>
-
+          <Channel
+  icon={<MessageSquareIcon className="h-4 w-4" />}
+  title="SMS confirmation"
+  status={<Pill tone="slate">Demo</Pill>}
+>
+  <p>To +91 {user.mobile}</p>
+  <Preview body={buildSmsMessage(payload)} mono />
+</Channel>
           <p className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
   Email confirmation is active. SMS delivery is simulated in this demo environment.
 </p>
