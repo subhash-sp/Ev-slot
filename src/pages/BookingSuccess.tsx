@@ -95,10 +95,9 @@ export function BookingSuccess() {
             <Preview body={buildSmsMessage(payload)} mono />
           </Channel>
 
-          {(email?.status === 'not_configured' || sms?.status === 'not_configured') &&
-          <p className="rounded-xl border border-orange-200 bg-orange-50 p-3 text-xs text-orange-800">
-              Email confirmation is active. SMS delivery is simulated in this demo environment.
-            </p>
+          <p className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
+  Email confirmation is active. SMS delivery is simulated in this demo environment.
+</p>
           }
         </section>
       </div>
