@@ -90,7 +90,7 @@ export function BookingSuccess() {
             <Preview title={buildEmail(payload).subject} body={buildEmail(payload).body} />
           </Channel>
 
-          <Channel icon={<MessageSquareIcon className="h-4 w-4" />} title="SMS confirmation" status={<StatusPill result={sms} />}>
+          <Channel icon={<MessageSquareIcon className="h-4 w-4" />} title="SMS confirmation" status={<Pill tone="slate">Demo</Pill>}>
             <p>To +91 {user.mobile}</p>
             <Preview body={buildSmsMessage(payload)} mono />
           </Channel>
