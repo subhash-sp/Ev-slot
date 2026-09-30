@@ -90,7 +90,7 @@ export function BookingSuccess() {
             <Preview title={buildEmail(payload).subject} body={buildEmail(payload).body} />
           </Channel>
 
-          <Channel icon={<MessageSquareIcon className="h-4 w-4" />} title="SMS confirmation" status={<StatusPill result={sms} />}>
+          <Channel icon={<MessageSquareIcon className="h-4 w-4" />} title="SMS confirmation" status={<Pill tone="slate">Demo</Pill>}>
             <p>To +91 {user.mobile}</p>
             <Preview body={buildSmsMessage(payload)} mono />
           </Channel>
@@ -130,11 +130,11 @@ function Preview({ title, body, mono }: {title?: string;body: string;mono?: bool
 
 }
 
-function StatusPill({ result }: {result?: DeliveryResult;}) {
+  function StatusPill({ result }: {result?: DeliveryResult;}) {
   if (!result) return <Pill tone="slate"><Loader2Icon className="h-3 w-3 animate-spin" /> Preparing</Pill>;
   if (result.status === 'sent') return <Pill tone="green">Sent</Pill>;
   if (result.status === 'failed') return <Pill tone="red">Failed</Pill>;
-  return <Pill tone="orange">Demo</Pill>;
+  return <Pill tone="orange">Not sent · no provider</Pill>;
 }
 
 function Pill({ tone, children }: {tone: 'green' | 'orange' | 'red' | 'slate';children: React.ReactNode;}) {
